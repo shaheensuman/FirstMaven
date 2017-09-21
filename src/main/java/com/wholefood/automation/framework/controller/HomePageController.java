@@ -40,50 +40,34 @@ public class HomePageController extends HomePageModel {
     public void goRecipesPage(){
         RecipesPageLink.click();
     }
-    public void findNavMenu(){
-       for (WebElement navMenu:navMenuList){
-          String navMenuText=navMenu.getText();
-           System.out.println("menu: "+navMenuText);
-       }
-    }
-    public void assertNavMenu(){
-        //findNavMenu();
-        String[] expectedMenuList={"FIND A STORE","ON SALE","RECIPES", "SHOP ONLINE","SIGN IN / REGISTER"};
-
-        String[]actualMenuList=new String[navMenuList.size()];
-        int count=0;
-        for(WebElement menu:navMenuList){
+    public void topNavLinkConnection(){
+        System.out.println(driver.getCurrentUrl());
+        for (WebElement menu:topNavLink){
+            String url=menu.getAttribute("href");
             String menuText=menu.getText();
-            actualMenuList[count]=menuText;
-            count++;
-            System.out.println(menuText);
+            System.out.println(menuText+": "+url);
+            try {
+                VerifyConnection.varifyUrl(url);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            /*    driver.navigate().to(url);
+            System.out.println(driver.getCurrentUrl());
+                String title=driver.getTitle();
+              //  System.out.println(title);
+            System.out.println(driver.getCurrentUrl());
+                WebElementUtils.delayFor(2000);
+                driver.navigate().back();
+
+            System.out.println(driver.getCurrentUrl());
+
+                WebElementUtils.delayFor(5000);
+            System.out.println(driver.getCurrentUrl());
+
+            */
+
         }
-        Assert.assertEquals(actualMenuList,expectedMenuList);
-    }
-    public void image(){
-
-        System.out.println(image.size());
-    }
-    public void VerifyShoppingMenu(){
-        String []expectedMenuList={"Find a Store", "Coupons", "Sales Flyers", "Catering & Online Ordering",
-                "Gift Cards", "Store Departments", "Store Events"};
-        HashSet<String> menuList=new HashSet<String>();
-        int count=0;
-        String[]actualMenu=new String[shoppingMenuList.size()];
-        for (WebElement menu:shoppingMenuList){
-            String menuText=menu.getText();
-
-           // menuList.add(menuText);
-            actualMenu[count]=menuText;
-           // System.out.println(menuText);
-           // System.out.println(actualMenu[count]);
-           count++;
-        }
-
-        System.out.println("Actual menu: "+Arrays.toString(actualMenu));
-        Assert.assertEquals(actualMenu,expectedMenuList);
-        //actual always come first then expected
-
     }
     public void shoppingLinkConnection(){
         System.out.println(driver.getCurrentUrl());
@@ -114,34 +98,70 @@ public class HomePageController extends HomePageModel {
 
         }
     }
-    public void topNavLinkConnection(){
-        System.out.println(driver.getCurrentUrl());
-        for (WebElement menu:topNavLink){
+    public void shoppingLink(){
+        HashMap<String,String> shoppingMenu=new HashMap<String, String>();
+
+        for (WebElement menu:shopMenuLink){
             String url=menu.getAttribute("href");
-            String menuText=menu.getText();
-            System.out.println(menuText+": "+url);
-            try {
-                VerifyConnection.varifyUrl(url);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            /*    driver.navigate().to(url);
-            System.out.println(driver.getCurrentUrl());
-                String title=driver.getTitle();
-              //  System.out.println(title);
-            System.out.println(driver.getCurrentUrl());
-                WebElementUtils.delayFor(2000);
-                driver.navigate().back();
-
-            System.out.println(driver.getCurrentUrl());
-
-                WebElementUtils.delayFor(5000);
-            System.out.println(driver.getCurrentUrl());
-
-            */
-
+            shoppingMenu.put(menu.getText(),url);
+            // System.out.println(url);
         }
+        Set<Map.Entry<String, String>> entrySet = shoppingMenu.entrySet();
+
+        for (Map.Entry<String, String> entry : entrySet)
+        {
+            System.out.println(entry.getKey()+" : "+entry.getValue());
+        }
+        //another way to go through each key and value
+       /* Set<String>keySet=shoppingMenu.keySet();
+
+        for (String key:keySet){
+            System.out.println(key);
+          //  System.out.println(key.length());
+            System.out.println(shoppingMenu.get(key));
+        }*/
+
+    }
+    public void findNavMenu(){
+       for (WebElement navMenu:navMenuList){
+          String navMenuText=navMenu.getText();
+           System.out.println("menu: "+navMenuText);
+       }
+    }
+    public void assertNavMenu(){
+        //findNavMenu();
+        String[] expectedMenuList={"FIND A STORE","ON SALE","RECIPES", "SHOP ONLINE","SIGN IN / REGISTER"};
+
+        String[]actualMenuList=new String[navMenuList.size()];
+        int count=0;
+        for(WebElement menu:navMenuList){
+            String menuText=menu.getText();
+            actualMenuList[count]=menuText;
+            count++;
+            System.out.println(menuText);
+        }
+        Assert.assertEquals(actualMenuList,expectedMenuList);
+    }
+    public void VerifyShoppingMenu(){
+        String []expectedMenuList={"Find a Store", "Coupons", "Sales Flyers", "Catering & Online Ordering",
+                "Gift Cards", "Store Departments", "Store Events"};
+        HashSet<String> menuList=new HashSet<String>();
+        int count=0;
+        String[]actualMenu=new String[shoppingMenuList.size()];
+        for (WebElement menu:shoppingMenuList){
+            String menuText=menu.getText();
+
+           // menuList.add(menuText);
+            actualMenu[count]=menuText;
+           // System.out.println(menuText);
+           // System.out.println(actualMenu[count]);
+           count++;
+        }
+
+        System.out.println("Actual menu: "+Arrays.toString(actualMenu));
+        Assert.assertEquals(actualMenu,expectedMenuList);
+        //actual always come first then expected
+
     }
     public void findingShoppingMenu(int index){
         HashSet<String> menuList=new HashSet<String>();
@@ -180,7 +200,7 @@ public class HomePageController extends HomePageModel {
         if(index<shoppingMenuList.size()){
             System.out.println("Menu of index "+(index)+" is "+actualMenuList[index]);
             String actualMenu=actualMenuList[index].trim();
-            Assert.assertEquals(actualMenu,menu.trim());
+            Assert.assertEquals(actualMenu,expectedMenu.trim());
         }else
         {
             System.out.println("Index is out of boundary");
@@ -188,29 +208,8 @@ public class HomePageController extends HomePageModel {
 
 
     }
-    public void shoppingLink(){
-        HashMap<String,String> shoppingMenu=new HashMap<String, String>();
+    public void image(){
 
-        for (WebElement menu:shopMenuLink){
-            String url=menu.getAttribute("href");
-            shoppingMenu.put(menu.getText(),url);
-           // System.out.println(url);
-        }
-        Set<Map.Entry<String, String>> entrySet = shoppingMenu.entrySet();
-
-        for (Map.Entry<String, String> entry : entrySet)
-        {
-            System.out.println(entry.getKey()+" : "+entry.getValue());
-        }
-        //another way to go through each key and value
-       /* Set<String>keySet=shoppingMenu.keySet();
-
-        for (String key:keySet){
-            System.out.println(key);
-          //  System.out.println(key.length());
-            System.out.println(shoppingMenu.get(key));
-        }*/
-
+        System.out.println(image.size());
     }
-
 }
