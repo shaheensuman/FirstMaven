@@ -1,6 +1,7 @@
 package com.wholefood.automation.framework.controller;
 
 import com.wholefood.automation.framework.Model.HomePageModel;
+import com.wholefood.automation.framework.utils.JavascriptExecutorUtils;
 import com.wholefood.automation.framework.utils.VerifyConnection;
 import com.wholefood.automation.framework.utils.WebElementUtils;
 import org.openqa.selenium.By;
@@ -31,6 +32,7 @@ public class HomePageController extends HomePageModel {
     public void goSignInPage(){
          SignInLink.click();
     }
+
     public void goShopOnlinePage(){
         shopOnlineLink.click();
     }
@@ -209,7 +211,6 @@ public class HomePageController extends HomePageModel {
 
     }
     public void image(){
-
         System.out.println(image.size());
     }
 }

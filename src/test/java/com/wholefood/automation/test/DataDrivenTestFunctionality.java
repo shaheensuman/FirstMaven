@@ -17,6 +17,7 @@ public class DataDrivenTestFunctionality extends WholeFoodScriptBase {
         wholeFood().onSalePage().navigateStores(stateName,storeIndex);
         WebElementUtils.delayFor(2000);
         wholeFood().stores().verifySubMenu();
+        WebElementUtils.delayFor(2000);
     }
 
 
