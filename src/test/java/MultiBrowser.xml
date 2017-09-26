@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="multibrowser" parallel="none">
     <test name="firefoxtest">
-        <parameter name="browser" value="firefox"/>
+        <parameter name="browser" value="FireFox"/>
         <classes>
             <class name="com.wholefood.automation.test.CheckLinkConnectivity"/>
         </classes>
