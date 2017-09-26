@@ -80,6 +80,14 @@
             <artifactId>extentreports</artifactId>
             <version>2.41.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.paxovision/paxo-reporter -->
+        <dependency>
+            <groupId>com.paxovision</groupId>
+            <artifactId>paxo-reporter</artifactId>
+            <version>1.0.11</version>
+        </dependency>
+
+
     </dependencies>
     <build>
         <plugins>
