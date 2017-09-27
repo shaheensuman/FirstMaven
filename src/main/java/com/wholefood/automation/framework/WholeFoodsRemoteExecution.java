@@ -34,7 +34,7 @@ public class WholeFoodsRemoteExecution {
             caps.setCapability("os", "Windows");
             caps.setCapability("os_version", "10");
             caps.setCapability("resolution", "1280x1024");
-            WebDriver driver = new RemoteWebDriver(new URL(REMOTE_HUB), caps);
+             driver = new RemoteWebDriver(new URL(REMOTE_HUB), caps);
         }else if(browser.equalsIgnoreCase("ch-cloud")){
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability("browser", "Chrome");
@@ -42,6 +42,7 @@ public class WholeFoodsRemoteExecution {
             caps.setCapability("os", "Windows");
             caps.setCapability("os_version", "10");
             caps.setCapability("resolution", "1280x1024");
+            driver= new RemoteWebDriver(new URL(REMOTE_HUB), caps);
         }else if (browser.equalsIgnoreCase("ie-cloud")){
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability("browser", "IE");
@@ -49,6 +50,7 @@ public class WholeFoodsRemoteExecution {
             caps.setCapability("os", "Windows");
             caps.setCapability("os_version", "10");
             caps.setCapability("resolution", "1280x1024");
+            driver= new RemoteWebDriver(new URL(REMOTE_HUB), caps);
         }
         if (browser.equalsIgnoreCase("chrome")){
             ChromeDriverManager.getInstance().setup();

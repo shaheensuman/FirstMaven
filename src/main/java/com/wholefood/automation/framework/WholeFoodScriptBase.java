@@ -27,40 +27,20 @@ public class WholeFoodScriptBase {
     public WebDriver driver = null;
     ApplicationController wholeFood = null;
 
+
     public static final String USERNAME = "jahangirshaheen1";
     public static final String AUTOMATE_KEY = "Fa4hfLwzmSwVG9L4h2Qp";
     public static final String REMOTE_HUB = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
-    @Parameters("browser")
+
+  //  @Parameters("browser")
 
     @BeforeMethod
-    public void setUp(String browser) throws MalformedURLException {
-
-   /*    if (browser.equalsIgnoreCase("chrome")) {
-            ChromeDriverManager.getInstance().setup();
-            driver = new ChromeDriver();
-
-
-      /*  } else if (browser.equalsIgnoreCase("firefox")) {
-            String DriverPath = System.getProperty("user.dir");
-            String FFpath = DriverPath + "\\Drivers\\FF\\32bits\\geckodriver.exe";
-            System.setProperty("webdriver.gecko.driver", FFpath);
-            driver = new FirefoxDriver();
-
-      /*  } else if (browser.equalsIgnoreCase("ie")) {
-            String DriverPath = System.getProperty("user.dir");
-            String FFpath = DriverPath + "\\Drivers\\FF\\32bits\\geckodriver.exe";
-            System.setProperty("webdriver.gecko.driver", FFpath);
-            driver = new FirefoxDriver();
-        }
-
-            /*    InternetExplorerDriverManager.getInstance().setup();
-                  driver=new InternetExplorerDriver();    */
-
+    public void setUp() throws MalformedURLException {
 
         System.out.println("*************before  test method*************");
 
 
-        if (browser.equalsIgnoreCase("ff-cloud")){
+    /*    if (browser.equalsIgnoreCase("ff-cloud")){
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability("browser", "Firefox");
             caps.setCapability("browser_version", "56.0 beta");
@@ -83,18 +63,17 @@ public class WholeFoodScriptBase {
             caps.setCapability("os_version", "10");
             caps.setCapability("resolution", "1280x1024");
         }
-        if (browser.equalsIgnoreCase("chrome")){
+        if (browser.equalsIgnoreCase("chrome")){*/
             ChromeDriverManager.getInstance().setup();
             driver=new ChromeDriver();
-        }else if(browser.equalsIgnoreCase("FireFox")){
+     /*   }else if(browser.equalsIgnoreCase("FireFox")){
            // FirefoxDriverManager.getInstance().setup();
             String DriverPath = System.getProperty("user.dir");
             String FFpath = DriverPath + "\\Drivers\\FF\\32bits\\geckodriver.exe";
             System.setProperty("webdriver.gecko.driver", FFpath);
             driver = new FirefoxDriver();
 
-        }
-
+        } */
 
         try {
              driver.navigate().to("https://www.wholefoodsmarket.com/");
@@ -103,10 +82,7 @@ public class WholeFoodScriptBase {
          }
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
          driver.manage().window().maximize();
-
-
         driver.manage().deleteAllCookies();
-
     }
 
     public ApplicationController wholeFood() {
@@ -116,10 +92,11 @@ public class WholeFoodScriptBase {
         return wholeFood;
     }
 
-    @AfterMethod
-    public void tearDown() {
 
-       if (driver != null) {
+    @AfterMethod
+    public void tearDown() {//for  parallel-class and  class level  test execution chrome and firefox.
+
+        if (driver!=null){
             driver.close();
             try {
                 driver.quit();
@@ -129,6 +106,11 @@ public class WholeFoodScriptBase {
 
             wholeFood=null;
         }
+
+        }
+
+    @AfterClass
+    public void afterClass(){
 
     }
 }

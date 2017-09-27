@@ -28,7 +28,7 @@ public class SaleFunctionality extends WholeFoodScriptBase {
     public void findingStore(){
         wholeFood().homepage().goSalePage();
         WebElementUtils.delayFor(5000);
-        wholeFood().onSalePage().selectStore("New York",5);
+        wholeFood().onSalePage().selectStore("New York",4);
         WebElementUtils.delayFor(2000);
     }
 

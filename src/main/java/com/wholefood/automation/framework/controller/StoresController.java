@@ -42,7 +42,7 @@ public class StoresController extends StoresPageModel {
         WebElementUtils.delayFor(2000);
         storeButton.click();
         WebElementUtils.delayFor(2000);
-        WebElement store=driver.findElement(By.xpath(".//div[@class='store-box']//a[1]"));
+        WebElement store=driver.findElement(By.xpath(".//*[@id='breadcrumb']/div/a[2]"));
         String storeName=store.getText();
         Assert.assertEquals(storeName,expStoreName);
     }
